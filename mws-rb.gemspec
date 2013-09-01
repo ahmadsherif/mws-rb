@@ -20,8 +20,12 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
   s.add_development_dependency "ephemeral_response"
+  s.add_development_dependency "guard"
+  s.add_development_dependency "guard-rspec"
 
   s.add_dependency "httparty"
   s.add_dependency "nokogiri"
-  s.add_dependency   'activesupport', ['>= 3.0', '< 4.1']
+  s.add_dependency "activesupport", ['>= 3.2', '< 4.1']
+  s.add_dependency "i18n"
+  s.add_dependency "builder"
 end
