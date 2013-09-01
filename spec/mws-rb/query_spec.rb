@@ -43,6 +43,14 @@ describe MWS::Query do
       builded_query = MWS::Query.new(query_params.merge(params: {custom_param: "custom"})).build_query
       builded_query.should include("CustomParam=custom")
     end
+
+    it "should upcase SKU and/or ASIN suffixes in Action parameter" do
+      builded_query = MWS::Query.new(query_params.merge(action: :get_lowest_offer_listings_for_sku)).build_query
+      builded_query.should include("Action=GetLowestOfferListingsForSKU")
+
+      builded_query = MWS::Query.new(query_params.merge(action: :get_product_categories_for_asin)).build_query
+      builded_query.should include("Action=GetProductCategoriesForASIN")
+    end
   end
 
   describe "canonical string" do

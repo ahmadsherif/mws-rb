@@ -24,3 +24,8 @@ module MWS
     @connection = MWS::Connection.new(options)
   end
 end
+
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.acronym 'SKU'
+  inflect.acronym 'ASIN'
+end
