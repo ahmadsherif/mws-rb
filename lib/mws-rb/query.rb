@@ -45,8 +45,8 @@ module MWS
       }
       query["Signature"] = signature if signature
 
-      params = Helpers.camelize_keys(@params || {})
-      params = Helpers.make_structured_lists(params)
+      params = Helpers.make_structured_lists(@params || {})
+      params = Helpers.camelize_keys(params)
       query.merge!(params)
 
       # Sort hash in natural-byte order

@@ -51,6 +51,13 @@ describe MWS::Query do
       builded_query = MWS::Query.new(query_params.merge(action: :get_product_categories_for_asin)).build_query
       builded_query.should include("Action=GetProductCategoriesForASIN")
     end
+
+    it "should build structured list in params" do
+      builded_query = MWS::Query.new(query_params.merge(params: {
+        seller_sku_list: {label: 'SellerSKUList.SellerSKU', values: ['1A', '2B']}
+      })).build_query
+      builded_query.should include("SellerSKUList.SellerSKU.1=1A&SellerSKUList.SellerSKU.2=2B")
+    end
   end
 
   describe "canonical string" do
