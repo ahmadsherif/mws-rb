@@ -25,7 +25,7 @@ module MWS
     end
 
     def canonical
-      canonical = [@verb.to_s.upcase, @host.downcase, @uri, build_query].join("\n")
+      canonical = [@verb.to_s.upcase, @host.downcase, @uri, build_query.gsub('+', '%20')].join("\n")
     end
 
     def signature
