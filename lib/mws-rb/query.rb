@@ -50,7 +50,16 @@ module MWS
       query.merge!(params)
 
       # Sort hash in natural-byte order
-      Hash[Helpers.escape_date_time_params(query).sort].to_query
+      query = Helpers.escape_date_time_params(query)
+      query_sorted = query.sort
+
+      # ActiveSupport Hash#to_query messes the order of the params, resulting in
+      # a signature that does match Amazon's calculation, so we copy the implementation here
+      # without the sorting.
+      # For example, suppose you have ASINList.ASIN.1, ASINList.ASIN.2 .. ASINList.ASIN.10; AS will
+      # sort to be ASINList.ASIN.10, ASINList.ASIN.1, ASINList.ASIN.2 and so on, while Amazon expects
+      # ASINList.ASIN.1, ASINList.ASIN.10, ASINList.ASIN.2 ...
+      Hash[query_sorted].map { |key, value| value.to_query(key) } * '&'
     end
 
     module Helpers
